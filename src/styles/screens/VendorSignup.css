@@ -1,0 +1,27 @@
+.VendorDetailspage .bg-grade {
+    background: rgb(0, 7, 118);
+    background: linear-gradient(
+      0deg,
+      rgba(0, 7, 118, 1) 0%,
+      rgba(0, 7, 118, 0.6795050783985469) 44%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    padding: 50px 20px;
+    border-radius: 20px;
+  }
+  
+  .form {
+    background: #e2dfef;
+    padding: 40px;
+    border-radius: 10px;
+  }
+  
+  .textField {
+    background-color: #d9d9d9;
+    border-radius: 4px;
+  }
+  
+  .SubmitButton {
+    margin-top: 20px;
+  }
+  

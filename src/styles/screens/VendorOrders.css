@@ -1,0 +1,74 @@
+.vendor-page {
+  display: flex;
+  height: 100vh;
+  color: white;
+  background-color: #002046;
+}
+
+.chatbot-sec1 {
+  background-color: #061628;
+  flex: 0.2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatbot-sec1-title h5 {
+  color: white;
+  padding: 20px;
+  margin: 20px 0 50px 0;
+  text-align: center;
+}
+
+.chatbot-sec1-links {
+  width: 75%;
+}
+
+.chatbot-sec1-links i {
+  width: 30px;
+}
+
+.chatbot-sec1-links div {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.chatbot-sec1-links div:hover {
+  color: #f0ad4e;
+}
+
+.orders-sec {
+  flex: 0.8;
+  padding: 20px;
+  background-color: #002046;
+  overflow-y: auto;
+}
+
+.orders-sec h5 {
+  background-color: #054fa8;
+  color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.order-item {
+  background-color: #054fa8;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-item h6, .order-item p {
+  margin: 0 0 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+
+}

@@ -1,0 +1,114 @@
+.footer {
+    /* position: absolute;
+    bottom: 0; */
+    width: 100%;
+    align-content: center;
+    
+    
+  }
+  
+  .bottom {
+    background-color: black;
+    color: #77798F;
+    text-align: center;
+    padding-top: 15px;
+  }
+  .bottom p{
+
+    font-size: 15px;
+    text-align: center;
+    padding-bottom: 15px;
+    margin-bottom: 0;
+
+  }
+  
+  
+  .upper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;    
+    background: transparent;
+    background: rgb(0,7,118);
+    background: linear-gradient(0deg, rgba(0,7,118,1) 0%, rgba(0,7,118,0.6795050783985469) 44%, rgba(0,0,0,0) 100%); 
+    padding-top: 100px;
+  }
+  
+  .left {
+    width: 50%;
+    max-width: 550px;
+    background: transparent;
+    margin-left: 50px;
+    
+
+  }
+
+  
+  .resources {
+    background-color: transparent;
+    text-align: center;
+  }
+  .resources h6 {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+    background: transparent;
+}
+  .links {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navlink {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 5px;
+    background: transparent;
+  }
+
+  .left h3{
+
+    background: radial-gradient(circle, rgba(255,255,255,1) 23%, rgba(255,255,255,0.5) 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+  }
+
+  .left p{
+    color: white;
+    background: transparent;
+
+}
+
+
+  .navlink:hover{
+
+    color: #A597FF;
+
+}
+
+.right, .links{
+    background: transparent;
+
+}
+  
+  @media screen and (max-width: 768px) {
+    .upper {
+      flex-direction: column;
+    }
+  
+    .left, .right {
+      width: 100%;
+      max-width: unset;
+      text-align: center;
+    }
+
+  
+    .left {
+
+        margin-left: 0px;
+    
+      }
+    
+  }

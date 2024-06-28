@@ -1,0 +1,315 @@
+
+.sec1 p {
+  text-align: center;
+  color: #627fff;
+  font-size: 20px;
+  background: transparent;
+}
+
+.sec1 p img {
+  height: fit-content;
+  width: 30px;
+  margin-right: 5px;
+  background: transparent;
+}
+
+.sec1 h1 {
+  text-align: center;
+  margin: auto;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 23%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.sec1 #button {
+  width: 250px;
+}
+
+.sec1 .bg-grade {
+  background: rgb(0, 7, 118);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 7, 118, 1) 0%,
+    rgba(0, 7, 118, 0.6795050783985469) 44%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding-top: 100px;
+  margin-bottom: 150px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-radius: 50px;
+}
+
+#sec1-image {
+  height: fit-content;
+  width: 85%;
+  display: block;
+  background: transparent;
+  margin: auto;
+  position: relative;
+  top: 75px;
+  filter: drop-shadow(5px 5px 50px navy);
+}
+
+.sec2 {
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  align-content: center;
+}
+
+.sec2-left {
+  background: transparent;
+  height: fit-content;
+  padding: 100px;
+  background-color: rgb(1, 1, 60);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.sec2 h3 {
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-align: left;
+}
+.sec2 p {
+  color: #77798f;
+  background: transparent;
+  text-align: left;
+}
+
+.sec2 .sec2-image {
+  height: fit-content;
+  width: 450px;
+  background-color: transparent;
+}
+
+.sec2-left .hr {
+  height: 2px;
+  background-color: white;
+  opacity: 50%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sec2-left .owner {
+  background-color: inherit;
+}
+
+.sec2-left img {
+  background-color: transparent;
+  width: 100px;
+  height: fit-content;
+  margin-top: -20px;
+}
+
+.owner-details {
+  background-color: inherit;
+  width: fit-content;
+  display: inline-block;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.sec2 p {
+  margin-bottom: 0px;
+}
+
+.sec3 h2 {
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 23%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline;
+  padding: 20px;
+}
+
+.sec3 {
+  margin: 30px;
+}
+
+.sec3 h5 {
+  color: gray;
+}
+.sec3 .row1 {
+  margin-top: 30px;
+}
+
+.sec4{
+
+    height: fit-content;
+    margin: auto;
+    width: 80%;
+    border-radius: 20px;
+    padding: 20px;
+    filter: drop-shadow(5px 10px 80px navy);
+    border: 2px solid white;
+
+}
+
+.sec4-all h2{
+    background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 23%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+text-align: center;
+margin-bottom: 75px;
+}
+
+.sec4-img-section{
+    border-radius: 20px;
+    background: rgb(0, 7, 118);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 7, 118, 1) 0%,
+    rgba(0, 7, 118, 0.6795050783985469) 10%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+
+}
+
+.sec4-img{
+    width:25vw;
+    border-radius: 20px;
+    background-color: transparent;
+    margin: 20px;
+
+}
+
+.sec4-text{
+    text-align: center;
+    color: white;
+    padding-top: 100px;
+    width: 100%;
+
+
+}
+.sec4-h3 ,.sec4-2-h3{
+    background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 23%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.sec4-text-step h5{
+    color:#627fff;
+}
+
+.sec4-2{
+  margin: 50px;
+}
+.step2-box,.step3-box{
+
+  border: 3px solid white;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+
+
+
+}
+
+.step2-box h5,.step3-box h5{
+
+  color:#627fff;
+  
+}
+.sec4-2-p p{
+
+  color: white;
+}
+
+.sec4-2-img-section {
+  height: max-content;
+  border-radius: 20px;
+  background: rgb(0, 7, 118);
+  background: linear-gradient( 0deg, rgba(0, 7, 118, 1) 0%, rgba(0, 7, 118, 0.6795050783985469) 10%, rgba(0, 0, 0, 0) 100% );
+}
+.sec4-2-img-section img{
+background: transparent;
+margin: 20px;
+width: 80%;
+
+}
+
+.sec5 h2{
+  background: radial-gradient(
+  circle,
+  rgba(255, 255, 255, 1) -10%,
+  rgba(255, 255, 255, 0.5) 80%
+);
+color: transparent;
+-webkit-background-clip: text;
+background-clip: text;
+text-align: center;
+margin-bottom: 75px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 768px) {
+  .landing-page .sec2-left img {
+    margin-top: 0px;
+    margin-left: 20px;
+  }
+  .landing-page .sec2-left .owner-details {
+    width: 250px;
+    margin-left: -40px;
+  }
+
+  .landing-page .sec2 .sec2-image {
+    width: 300px;
+    margin-top: 20px;
+  }
+
+  .sec4-img{
+    width:25vh;
+}
+.sec4-2-img-section img{
+  width:70vw;
+ 
+}
+
+
+
+}
+
+

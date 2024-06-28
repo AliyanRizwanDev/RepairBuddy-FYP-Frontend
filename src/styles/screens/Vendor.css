@@ -1,0 +1,99 @@
+.vendor-page {
+  display: flex;
+  height: 100vh;
+  color: white;
+  background-color: #002046;
+}
+
+.chatbot-sec1 {
+  background-color: #061628;
+  flex: 0.2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatbot-sec1-title h5 {
+  background-color: #054fa8;
+  padding: 20px;
+  margin: 20px 0 50px 0;
+  text-align: center;
+}
+
+.chatbot-sec1-links {
+  width: 75%;
+}
+
+.chatbot-sec1-links i {
+  width: 30px;
+}
+
+.chatbot-sec3 {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #002046;
+}
+
+.filter-input {
+  margin-bottom: 20px;
+}
+
+.allvendor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vendorItem {
+  display: flex;
+  justify-content: center;
+  background-color: #010f20;
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid purple;
+  cursor: pointer;
+}
+
+.vendorItem:hover {
+  background-color: #05274f;
+}
+
+.vendorsummary {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.vendordropDown {
+  margin-top: -20px;
+  padding: 20px;
+  background-color: #054fa8;
+  border-radius: 0 0 50px 50px;
+}
+
+.vendordropDown h6, .vendordropDown .visitPrice, .vendordropDown .selectButton {
+  margin-top: 10px;
+}
+
+.visitPrice input {
+  background-color: #061628;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.selectButton {
+  padding: 10px;
+  background-color: #073c7d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.selectButton:hover {
+  background-color: #010F20;
+}

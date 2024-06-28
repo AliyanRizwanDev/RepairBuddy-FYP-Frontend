@@ -1,0 +1,175 @@
+.vendor-page {
+  display: flex;
+  height: 100vh;
+  color: white;
+  background-color: #002046;
+}
+
+.chatbot-sec1 {
+  background-color: #061628;
+  flex: 0.2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatbot-sec1-title h5 {
+  background-color: #054fa8;
+  padding: 20px;
+  margin: 20px 0 50px 0;
+  text-align: center;
+}
+
+.chatbot-sec1-links {
+  width: 75%;
+}
+
+.chatbot-sec1-links i {
+  width: 30px;
+}
+
+.chatbot-sec2 {
+  flex: 0.8;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #002046;
+}
+
+.filter-input {
+  margin-bottom: 20px;
+}
+
+.all-jobs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listofjobs {
+  color: white;
+  background-color: #054fa8;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.listofjobs:hover {
+  background-color: #073c7d;
+}
+
+.listofjobs h6,
+.listofjobs p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.listofjobs p {
+  margin-top: 10px;
+}
+
+.chatbot-sec2-heading {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  color: rgb(76, 76, 248);
+  text-align: center;
+}
+
+.chatbot-sec2 button {
+  border: none;
+  background-color: #054fa8;
+  color: white;
+  cursor: pointer;
+}
+
+.chatbot-sec2 button:hover {
+  background-color: #073c7d;
+}
+
+.vendorsummary {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.vendorItem {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  background-color: #010f20;
+  padding: 20px;
+  width: 80%;
+  border-radius: 25px;
+  border: 5px solid purple;
+  z-index: 3;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vendorItem:hover {
+  background-color: #05274f;
+}
+
+.availableVendor {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+p, h4, h6 {
+  margin: 0;
+}
+
+.vendordropDown {
+  height: auto;
+  width: 70%;
+  color: white;
+}
+
+.vendordropDown {
+  display: flex;
+  flex-direction: column;
+  background-color: #054fa8;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  margin-top: -20px;
+  padding: 40px;
+  z-index: 2;
+}
+
+.visitPrice {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.visitPrice label {
+  margin-right: 10px;
+}
+
+.visitPrice input {
+  background-color: #061628;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.selectButton {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #073c7d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.selectButton:hover {
+  background-color: #010F20;
+}

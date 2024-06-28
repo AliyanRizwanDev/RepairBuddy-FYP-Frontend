@@ -1,0 +1,17 @@
+.accordion-full{
+    width: 80%;
+    margin: auto;
+    
+}
+.acc-name{
+    color: rgb(193, 185, 185);
+    margin: 0;
+}
+    
+.acc-details{
+    color: rgb(193, 185, 185);
+}
+.acc-each{
+    background-color: black !important ;
+    border: 0.5px solid white;
+}
