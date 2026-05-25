@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/screens/Vendor.css";
 
 export default function Vendors() {
-  const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
   const [currentVendor, setCurrentVendor] = useState(null);
   const [timeInHours, setTimeInHours] = useState("");

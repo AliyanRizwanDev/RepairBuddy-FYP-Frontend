@@ -18,7 +18,6 @@ import {
   Grid,
   CircularProgress,
 } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store"; // Path to your store file
 import { toast } from "react-toastify";
@@ -92,8 +91,6 @@ export default function SignIn() {
       setIsLoading(false);
     }
   };
-
-  const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
     <div className="signInPage">

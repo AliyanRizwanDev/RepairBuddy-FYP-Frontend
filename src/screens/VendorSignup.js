@@ -15,8 +15,6 @@ import {
   Grid,
   CircularProgress,
 } from "@mui/material";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import "../styles/screens/VendorSignup.css";
 import api from "../utils/api";
 import { useDispatch } from "react-redux";

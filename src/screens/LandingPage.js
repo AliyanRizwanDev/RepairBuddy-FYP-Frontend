@@ -1,11 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Union from "../utils/union.png";
 import Sec1Img from "../utils/sec-1 image.png";
 import Chatbot from "../utils/chatbot.png";
-import Owner from "../utils/owner.png";
 import Step1 from "../utils/sec-4-s1.png";
 import Step2 from "../utils/sec-4-s2.png";
 import Step3 from "../utils/sec-4-s3.png";

@@ -10,7 +10,6 @@ import Chatbot from "./screens/Chatbot";
 import Vendors from "./screens/Vendors";
 import SignIn from "./screens/SignIn";
 import SignUp from "./screens/SignUp";
-import Forgot from "./screens/Forgot";
 import Feedback from "./screens/Feedback";
 import Report from "./screens/Report";
 import VendorSignup from "./screens/VendorSignup";
@@ -39,7 +38,7 @@ function App() {
     }
 
     setLoading(false);
-  }, [isAuthenticated]);
+  }, [isAuthenticated, dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
