@@ -13,12 +13,12 @@ import {
   Box,
   Typography,
   Grid,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/screens/VendorSignup.css";
-import axios from "axios";
+import api from "../utils/api";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store"; // Path to your store file
 
@@ -67,7 +67,8 @@ export default function VendorSignup() {
         if (!emailRegex.test(value)) error = "Invalid email";
         break;
       case "password":
-        if (!passwordRegex.test(value)) error = "Password must be at least 8 characters long";
+        if (!passwordRegex.test(value))
+          error = "Password must be at least 8 characters long";
         break;
       case "confirmpassword":
         if (value !== password) error = "Passwords do not match";
@@ -110,7 +111,7 @@ export default function VendorSignup() {
       !errors.cnic
     ) {
       try {
-        const response = await axios.post("http://localhost:5000/api/vendor/signup", {
+        const response = await api.post("/api/vendor/signup", {
           fullName,
           email,
           password,
@@ -123,7 +124,11 @@ export default function VendorSignup() {
         });
 
         if (response.status === 201) {
-          const vendorData = { ...response.data.vendor, role: "vendor" };
+          const vendorData = {
+            ...response.data.user,
+            role: "vendor",
+            token: response.data.token,
+          };
           localStorage.setItem("vendor", JSON.stringify(vendorData));
           dispatch(userActions.LoggedIn(vendorData));
           navigate("/vendor-side");
@@ -131,8 +136,11 @@ export default function VendorSignup() {
       } catch (error) {
         console.error("There was an error creating the vendor account!", error);
         if (error.response && error.response.data) {
-          const { error: errorMsg } = error.response.data;
-          setGlobalError(errorMsg);
+          const data = error.response.data;
+          const msg = data.message || data.error || JSON.stringify(data);
+          setGlobalError(msg);
+        } else if (error.message) {
+          setGlobalError(error.message);
         } else {
           setGlobalError("An unexpected error occurred. Please try again.");
         }
@@ -147,7 +155,6 @@ export default function VendorSignup() {
 
   return (
     <div className="VendorDetailspage">
-      
       <Box className="bg-grade">
         <Container maxWidth="sm">
           <Box className="form">
@@ -156,7 +163,12 @@ export default function VendorSignup() {
             </Typography>
 
             {globalError && (
-              <Typography variant="body1" color="error" align="center" gutterBottom>
+              <Typography
+                variant="body1"
+                color="error"
+                align="center"
+                gutterBottom
+              >
                 {globalError}
               </Typography>
             )}
@@ -176,7 +188,9 @@ export default function VendorSignup() {
                       className="textField"
                       fullWidth
                       onChange={(event) => setfullName(event.target.value)}
-                      onBlur={(event) => validateInput("fullName", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("fullName", event.target.value)
+                      }
                       value={fullName}
                       error={!!errors.fullName}
                       helperText={errors.fullName}
@@ -191,7 +205,9 @@ export default function VendorSignup() {
                       className="textField"
                       fullWidth
                       onChange={(event) => setEmail(event.target.value)}
-                      onBlur={(event) => validateInput("email", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("email", event.target.value)
+                      }
                       value={email}
                       error={!!errors.email}
                       helperText={errors.email}
@@ -208,7 +224,9 @@ export default function VendorSignup() {
                       fullWidth
                       required
                       onChange={(event) => setPassword(event.target.value)}
-                      onBlur={(event) => validateInput("password", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("password", event.target.value)
+                      }
                       value={password}
                       error={!!errors.password}
                       helperText={errors.password}
@@ -224,8 +242,12 @@ export default function VendorSignup() {
                       className="textField"
                       fullWidth
                       required
-                      onChange={(event) => setConfirmpassword(event.target.value)}
-                      onBlur={(event) => validateInput("confirmpassword", event.target.value)}
+                      onChange={(event) =>
+                        setConfirmpassword(event.target.value)
+                      }
+                      onBlur={(event) =>
+                        validateInput("confirmpassword", event.target.value)
+                      }
                       value={confirmpassword}
                       error={!!errors.confirmpassword}
                       helperText={errors.confirmpassword}
@@ -233,17 +255,33 @@ export default function VendorSignup() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <FormControl component="fieldset" style={{ marginBottom: "20px" }}>
+                    <FormControl
+                      component="fieldset"
+                      style={{ marginBottom: "20px" }}
+                    >
                       <FormLabel component="legend">Type:</FormLabel>
                       <RadioGroup
                         aria-label="type"
                         name="type"
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        style={{ display: "flex", flexDirection: "row", margin: "20px" }}
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          margin: "20px",
+                        }}
                       >
-                        <FormControlLabel value="company" control={<Radio />} label="Company" style={{ marginRight: "20px" }} />
-                        <FormControlLabel value="private" control={<Radio />} label="Private" />
+                        <FormControlLabel
+                          value="company"
+                          control={<Radio />}
+                          label="Company"
+                          style={{ marginRight: "20px" }}
+                        />
+                        <FormControlLabel
+                          value="private"
+                          control={<Radio />}
+                          label="Private"
+                        />
                       </RadioGroup>
                     </FormControl>
                   </Grid>
@@ -256,7 +294,9 @@ export default function VendorSignup() {
                       fullWidth
                       required
                       onChange={(event) => setAddress(event.target.value)}
-                      onBlur={(event) => validateInput("address", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("address", event.target.value)
+                      }
                       value={address}
                       error={!!errors.address}
                       helperText={errors.address}
@@ -271,7 +311,9 @@ export default function VendorSignup() {
                       fullWidth
                       required
                       onChange={(event) => setCity(event.target.value)}
-                      onBlur={(event) => validateInput("city", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("city", event.target.value)
+                      }
                       value={city}
                       error={!!errors.city}
                       helperText={errors.city}
@@ -286,7 +328,9 @@ export default function VendorSignup() {
                       fullWidth
                       required
                       onChange={(event) => setSkills(event.target.value)}
-                      onBlur={(event) => validateInput("skills", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("skills", event.target.value)
+                      }
                       value={skills}
                       error={!!errors.skills}
                       helperText={errors.skills}
@@ -301,8 +345,12 @@ export default function VendorSignup() {
                       className="textField"
                       fullWidth
                       required
-                      onChange={(event) => setWhatsappnumber(event.target.value)}
-                      onBlur={(event) => validateInput("whatsappNumber", event.target.value)}
+                      onChange={(event) =>
+                        setWhatsappnumber(event.target.value)
+                      }
+                      onBlur={(event) =>
+                        validateInput("whatsappNumber", event.target.value)
+                      }
                       value={whatsappNumber}
                       error={!!errors.whatsappNumber}
                       helperText={errors.whatsappNumber}
@@ -318,7 +366,9 @@ export default function VendorSignup() {
                       fullWidth
                       required
                       onChange={(event) => setCnic(event.target.value)}
-                      onBlur={(event) => validateInput("cnic", event.target.value)}
+                      onBlur={(event) =>
+                        validateInput("cnic", event.target.value)
+                      }
                       value={cnic}
                       error={!!errors.cnic}
                       helperText={errors.cnic}
@@ -326,7 +376,12 @@ export default function VendorSignup() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <Button variant="contained" className="SubmitButton" onClick={handleSubmit} fullWidth>
+                    <Button
+                      variant="contained"
+                      className="SubmitButton"
+                      onClick={handleSubmit}
+                      fullWidth
+                    >
                       SIGN UP
                     </Button>
                   </Grid>
@@ -336,7 +391,6 @@ export default function VendorSignup() {
           </Box>
         </Container>
       </Box>
-      
     </div>
   );
 }

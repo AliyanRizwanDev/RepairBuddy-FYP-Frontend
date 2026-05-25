@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Union from "../utils/union.png";
@@ -11,31 +12,38 @@ import Step3 from "../utils/sec-4-s3.png";
 
 import "../styles/screens/LandingPage.css";
 import AccordionUsage from "../components/AccordionUsage";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
     <div>
-      
-
       <div className="landing-page">
         <div className="sec1 text-center">
-          <div className="bg-grade">
-            <p>
-              <img src={Union} alt="Union" />
-              WELCOME TO REPAIRBUDDY
-            </p>
+          <div className="bg-grade" style={{ position: "relative" }}>
+            <div className="hero-decor" aria-hidden="true">
+              <span className="sparkle"></span>
+              <span className="sparkle"></span>
+              <span className="sparkle"></span>
+              <span className="sparkle"></span>
+            </div>
+            <p>WELCOME TO REPAIRBUDDY</p>
 
             <h1>
               SWIFTLY TROUBLESHOOT DEVICE PROBLEMS OR SUMMON A HOME FIXING
               EXPERT IN A SNAP!
             </h1>
 
-            <Link to="/sign-Up">
-            <button className="btn btn-outline-primary my-1" id="button">
-              Get Started For Free
-            </button>
-            </Link>
+            {!useSelector((state) => state.isAuthenticated) && (
+              <Link to="/sign-up">
+                <button
+                  aria-label="Get started for free"
+                  className="btn btn-outline-primary my-1"
+                  id="button"
+                >
+                  Get Started For Free
+                </button>
+              </Link>
+            )}
 
             <img id="sec1-image" src={Sec1Img} alt="sec1Image" />
           </div>
@@ -48,14 +56,6 @@ export default function LandingPage() {
               Since unleashing RepairBuddy, we've witnessed a game-changing up
               to 50% drop for users to go to an onsite visits for device issues.
             </p>
-            <div className="hr"></div>
-            <div className="owner">
-              <img src={Owner} alt="owner" />
-              <div className="owner-details">
-                <p id="owner-name">MOHAMMAD ALIYAN</p>
-                <p id="owner-role">Founder and CEO of RepairBuddy</p>
-              </div>
-            </div>
           </div>
           <div className="sec2-right col text-center">
             <img className="sec2-image" src={Chatbot} alt="chatbot" />
@@ -151,12 +151,20 @@ export default function LandingPage() {
       </div>
 
       <div className="sec5">
-      <h2>FAQs</h2>
-      <AccordionUsage/>
+        <h2
+          style={{
+            marginTop: "50px",
+          }}
+        >
+          FAQs
+        </h2>
+        <AccordionUsage />
+        <div
+          style={{
+            marginTop: "50px",
+          }}
+        ></div>
       </div>
-
-
-      
     </div>
   );
 }

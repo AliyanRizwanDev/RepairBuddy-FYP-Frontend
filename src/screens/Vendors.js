@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { Link } from "react-router-dom";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/screens/Vendor.css";
 
@@ -21,7 +21,7 @@ export default function Vendors() {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/vendor");
+        const response = await api.get("/api/vendor");
         setVendors(response.data);
         setFilteredVendors(response.data);
       } catch (error) {
@@ -35,18 +35,19 @@ export default function Vendors() {
 
   useEffect(() => {
     setFilteredVendors(
-      vendors.filter((vendor) =>
-        vendor.fullName.toLowerCase().includes(filter.toLowerCase()) ||
-        vendor.skills.toLowerCase().includes(filter.toLowerCase())
-      )
+      vendors.filter(
+        (vendor) =>
+          vendor.fullName.toLowerCase().includes(filter.toLowerCase()) ||
+          vendor.skills.toLowerCase().includes(filter.toLowerCase()),
+      ),
     );
   }, [filter, vendors]);
 
   const handleVisitPriceChange = (id, price) => {
     setVendors(
       vendors.map((vendor) =>
-        vendor._id === id ? { ...vendor, visitPrice: price } : vendor
-      )
+        vendor._id === id ? { ...vendor, visitPrice: price } : vendor,
+      ),
     );
   };
 
@@ -76,7 +77,7 @@ export default function Vendors() {
 
   const handleConfirm = async () => {
     try {
-      await axios.post("http://localhost:5000/api/orders", {
+      await api.post("/api/orders", {
         userId: storeData._id,
         vendorId: currentVendor._id,
         issueMessage,
@@ -105,8 +106,7 @@ export default function Vendors() {
   };
 
   return (
-    <div className="vendor-page">
-      <ToastContainer />
+    <div className="vendor-page full-bleed">
       <div className="chatbot-sec1">
         <div className="chatbot-sec1-title">
           <h5>Vendor List</h5>
@@ -163,11 +163,13 @@ export default function Vendors() {
               <div
                 className="vendorItem"
                 onClick={() =>
-                  setVendors(vendors.map((vendor) =>
-                    vendor._id === item._id
-                      ? { ...vendor, focus: !vendor.focus }
-                      : vendor
-                  ))
+                  setVendors(
+                    vendors.map((vendor) =>
+                      vendor._id === item._id
+                        ? { ...vendor, focus: !vendor.focus }
+                        : vendor,
+                    ),
+                  )
                 }
               >
                 <div className="vendorsummary">
@@ -176,7 +178,9 @@ export default function Vendors() {
                     <p>Skills: {item.skills}</p>
                   </div>
                   <div>
-                    <h4>⭐ {item.averageRating===0?5:item.averageRating}</h4>
+                    <h4>
+                      ⭐ {item.averageRating === 0 ? 5 : item.averageRating}
+                    </h4>
                     <h4>🕒 {item.onTimePercentage}%</h4>
                   </div>
                 </div>

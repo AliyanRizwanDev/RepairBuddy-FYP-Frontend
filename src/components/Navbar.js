@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from 'react-router-dom';
-import { userActions } from '../store';
+import { Link, useNavigate } from "react-router-dom";
+import { userActions } from "../store";
 import "../styles/components/Navbar.css";
 import logo from "../logo.png";
 import { toast } from "react-toastify";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user || {});
 
   const handleLogout = () => {
     dispatch(userActions.LoggedOut());
@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
+      <div className="container">
         <Link className="navbar-brand" to="/">
           <img src={logo} alt="logo" id="logo" />
         </Link>
@@ -60,8 +60,13 @@ export default function Navbar() {
               </>
             )}
           </ul>
-          {user.role ? (
-            <button className="btn btn-outline-primary my-1" id="button" onClick={handleLogout} style={{ width: "fit-content" }}>
+          {user?.role ? (
+            <button
+              className="btn btn-outline-primary my-1"
+              id="button"
+              onClick={handleLogout}
+              style={{ width: "fit-content" }}
+            >
               Log Out
             </button>
           ) : (
@@ -72,7 +77,11 @@ export default function Navbar() {
                 </button>
               </Link>
               <Link to="/vendor-signup">
-                <button style={{ width: "fit-content" }} className="btn btn-outline-primary mx-2" id="button">
+                <button
+                  style={{ width: "fit-content" }}
+                  className="btn btn-outline-primary mx-2"
+                  id="button"
+                >
                   Sign Up as Vendor
                 </button>
               </Link>

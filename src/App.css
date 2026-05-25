@@ -1,8 +1,30 @@
-*{
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+* {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
-.App{
-    background-color: black;
+.App {
+  background-color: black;
+  min-height: 100vh;
+}
+
+/* Global button styles for consistent UI */
+button,
+.SubmitButton,
+.selectButton {
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+}
+
+/* Form fields spacing */
+.form .textField {
+  margin-bottom: 12px;
+}
+
+/* Consistent card spacing */
+.vendor-page .availableVendor,
+.admin-dashboard .admin-section,
+.order-item {
+  margin-bottom: 12px;
 }

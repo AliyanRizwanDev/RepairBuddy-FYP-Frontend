@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../styles/screens/Chatbot.css";
+import api from "../utils/api";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import {Link} from 'react-router-dom'
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 export default function ChatBot() {
   const [selected, setSelected] = useState(null);
@@ -16,13 +17,13 @@ export default function ChatBot() {
 
   function formatSteps(input) {
     let steps = input.split(/\d+\.\s/);
-    steps = steps.filter(step => step.trim() !== '');
-    return steps.join('\n').trim();
-}
+    steps = steps.filter((step) => step.trim() !== "");
+    return steps.join("\n").trim();
+  }
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/chats");
+        const response = await api.get("/api/chats");
         setChatHistory(response.data);
       } catch (error) {
         console.error("Error fetching chat history", error);
@@ -40,18 +41,34 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      const responseFromBot = await axios.post("http://localhost:5555/ask", { question: input });
+      const CHATBOT_BASE =
+        process.env.REACT_APP_CHATBOT_URL ||
+        (process.env.REACT_APP_API_URL
+          ? `${process.env.REACT_APP_API_URL}/chatbot`
+          : "http://localhost:5555");
+      const responseFromBot = await axios.post(`${CHATBOT_BASE}/ask`, {
+        question: input,
+      });
       let botMessage = responseFromBot.data.answer;
 
-      if (botMessage.includes('1.') && botMessage.match(/\d+\.\s/)) {
+      if (botMessage.includes("1.") && botMessage.match(/\d+\.\s/)) {
         botMessage = formatSteps(botMessage);
       }
 
-      await axios.post(`http://localhost:5000/api/chats/${selected}/messages`, { sender: "user", text: input });
-      await axios.post(`http://localhost:5000/api/chats/${selected}/messages`, { sender: "bot", text: botMessage });
+      await api.post(`/api/chats/${selected}/messages`, {
+        sender: "user",
+        text: input,
+      });
+      await api.post(`/api/chats/${selected}/messages`, {
+        sender: "bot",
+        text: botMessage,
+      });
 
       setTimeout(() => {
-        setMessages((prevMessages) => [...prevMessages, { sender: "bot", text: botMessage }]);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: "bot", text: botMessage },
+        ]);
         setLoading(false);
       }, 2000);
     } catch (error) {
@@ -75,7 +92,7 @@ export default function ChatBot() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chats", {
+      const response = await api.post("/api/chats", {
         chatName: newChatName,
         chatDescription: newChatDescription,
       });
@@ -94,7 +111,7 @@ export default function ChatBot() {
   const handleChatSelect = async (id) => {
     setSelected(id);
     try {
-      const response = await axios.get(`http://localhost:5000/api/chats/${id}`);
+      const response = await api.get(`/api/chats/${id}`);
       setMessages(response.data.messages);
     } catch (error) {
       console.error("Error fetching chat messages", error);
@@ -104,7 +121,7 @@ export default function ChatBot() {
 
   const handleDeleteChat = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/chats/${id}`);
+      await api.delete(`/api/chats/${id}`);
       setChatHistory(chatHistory.filter((chat) => chat._id !== id));
       if (selected === id) {
         setSelected(null);
@@ -118,18 +135,27 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="chatbot-container">
-      <ToastContainer />
+    <div className="chatbot-container full-bleed">
       <div className="sidebar">
         <div className="sidebar-title">
           <h5>Repairing Chatbot</h5>
         </div>
-         <div className="sidebar-links">
-          <Link style={{padding:"10px"}} to="/vendors" className="link"><i className="fa-solid fa-people-group"></i> Vendor List</Link>
-          <Link  style={{padding:"10px"}} to="/feedback" className="link"><i className="fa-regular fa-message"></i> Feedback</Link>
-          <Link  style={{padding:"10px"}} to="/report" className="link"><i className="fa-solid fa-bug"></i> Report</Link>
-          <Link  style={{padding:"10px"}} to="/user-orders" className="link"><i className="fa-solid fa-triangle-exclamation"></i> My Order</Link>
-          <Link  style={{padding:"10px"}} to="/settings" className="link"><i className="fa-solid fa-gear"></i> Settings</Link>
+        <div className="sidebar-links">
+          <Link style={{ padding: "10px" }} to="/vendors" className="link">
+            <i className="fa-solid fa-people-group"></i> Vendor List
+          </Link>
+          <Link style={{ padding: "10px" }} to="/feedback" className="link">
+            <i className="fa-regular fa-message"></i> Feedback
+          </Link>
+          <Link style={{ padding: "10px" }} to="/report" className="link">
+            <i className="fa-solid fa-bug"></i> Report
+          </Link>
+          <Link style={{ padding: "10px" }} to="/user-orders" className="link">
+            <i className="fa-solid fa-triangle-exclamation"></i> My Order
+          </Link>
+          <Link style={{ padding: "10px" }} to="/settings" className="link">
+            <i className="fa-solid fa-gear"></i> Settings
+          </Link>
         </div>
       </div>
       <div className="chat-history">
@@ -159,7 +185,9 @@ export default function ChatBot() {
                   <h6>{item.chatName}</h6>
                   <p>{item.chatDescription}</p>
                 </div>
-                <button onClick={() => handleDeleteChat(item._id)}>Delete</button>
+                <button onClick={() => handleDeleteChat(item._id)}>
+                  Delete
+                </button>
               </div>
             ))
           )}
@@ -169,14 +197,22 @@ export default function ChatBot() {
         {selected !== null ? (
           <>
             <div className="chat-header">
-              <h6>{chatHistory.find((chat) => chat._id === selected)?.chatName}</h6>
+              <h6>
+                {chatHistory.find((chat) => chat._id === selected)?.chatName}
+              </h6>
             </div>
             <div className="chat-messages">
               {messages.map((msg, index) => (
                 <div key={index} className={`message-container ${msg.sender}`}>
                   <div className={`message ${msg.sender}`}>
-                    {msg.sender === "bot" ? <i className="fa-solid fa-robot"></i> : <i className="fa-solid fa-user"></i>}
-                    <div className="message-text"><h6>{formatSteps(msg.text)}</h6></div>
+                    {msg.sender === "bot" ? (
+                      <i className="fa-solid fa-robot"></i>
+                    ) : (
+                      <i className="fa-solid fa-user"></i>
+                    )}
+                    <div className="message-text">
+                      <h6>{formatSteps(msg.text)}</h6>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -184,7 +220,9 @@ export default function ChatBot() {
                 <div className="message-container bot">
                   <div className="message bot">
                     <i className="fa-solid fa-robot"></i>
-                    <div className="message-text"><h6>Loading...</h6></div>
+                    <div className="message-text">
+                      <h6>Loading...</h6>
+                    </div>
                   </div>
                 </div>
               )}
@@ -197,7 +235,9 @@ export default function ChatBot() {
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                 placeholder="Type your message..."
               />
-              <button onClick={handleSendMessage}><i className="fa-solid fa-circle-chevron-right"></i></button>
+              <button onClick={handleSendMessage}>
+                <i className="fa-solid fa-circle-chevron-right"></i>
+              </button>
             </div>
           </>
         ) : (

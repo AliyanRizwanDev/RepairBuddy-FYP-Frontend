@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/screens/UserOrders.css";
 
@@ -12,7 +12,7 @@ export default function UserOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/orders?user=${storeData._id}`);
+        const response = await api.get(`/api/orders?user=${storeData._id}`);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders", error);
@@ -24,8 +24,12 @@ export default function UserOrders() {
 
   const handleRateOrder = async (orderId, rating) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${orderId}`, { rating });
-      setOrders(orders.map(order => order._id === orderId ? { ...order, rating } : order));
+      await api.put(`/api/orders/${orderId}`, { rating });
+      setOrders(
+        orders.map((order) =>
+          order._id === orderId ? { ...order, rating } : order,
+        ),
+      );
       toast.success("Order rated successfully");
     } catch (error) {
       console.error("Error rating order", error);
@@ -34,8 +38,7 @@ export default function UserOrders() {
   };
 
   return (
-    <div className="vendor-page">
-      <ToastContainer />
+    <div className="vendor-page full-bleed">
       <div className="chatbot-sec1">
         <div className="chatbot-sec1-title">
           <h5>User Dashboard</h5>
@@ -50,7 +53,9 @@ export default function UserOrders() {
           <Link to="/report" className="link" style={{ padding: "10px" }}>
             <i className="fa-solid fa-bug my-2"></i> Report
           </Link>
-          <Link style={{padding:"10px"}} to="/vendors" className="link"><i className="fa-solid fa-people-group"></i> Vendor List</Link>
+          <Link style={{ padding: "10px" }} to="/vendors" className="link">
+            <i className="fa-solid fa-people-group"></i> Vendor List
+          </Link>
 
           <Link to="/settings" className="link" style={{ padding: "10px" }}>
             <i className="fa-solid fa-gear my-2"></i> Settings
@@ -62,7 +67,7 @@ export default function UserOrders() {
         {orders.length === 0 ? (
           <p>No orders available</p>
         ) : (
-          orders.map(order => (
+          orders.map((order) => (
             <div className="order-item" key={order._id}>
               <h6>{order.issueMessage}</h6>
               <p>Status: {order.status}</p>
@@ -71,7 +76,12 @@ export default function UserOrders() {
               {order.status === "Completed" && !order.rating && (
                 <div>
                   <label>Rate the Service: </label>
-                  <input type="number" max="5" min="1" onChange={(e) => handleRateOrder(order._id, e.target.value)} />
+                  <input
+                    type="number"
+                    max="5"
+                    min="1"
+                    onChange={(e) => handleRateOrder(order._id, e.target.value)}
+                  />
                 </div>
               )}
               {order.status === "Completed" && order.rating && (

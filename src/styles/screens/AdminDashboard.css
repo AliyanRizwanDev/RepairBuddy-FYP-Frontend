@@ -5,6 +5,13 @@
   height: 100vh;
 }
 
+/* Constrain admin content and center it */
+.admin-dashboard .container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 28px;
+}
+
 .admin-links {
   display: flex;
   gap: 10px;

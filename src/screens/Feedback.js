@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { Button, TextField, Container, Box, Typography, Grid } from '@mui/material';
-import axios from 'axios';
-import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import React, { useState } from "react";
+import {
+  Button,
+  TextField,
+  Container,
+  Box,
+  Typography,
+  Grid,
+  CircularProgress,
+} from "@mui/material";
+import api from "../utils/api";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/screens/Feedback.css";
 
 export default function Feedback() {
   const [issue, setIssue] = useState("");
@@ -18,7 +22,7 @@ export default function Feedback() {
     setIsLoading(true);
     setGlobalError("");
     try {
-      const response = await axios.post("http://localhost:5000/api/user/feedback", {
+      const response = await api.post("/api/user/feedback", {
         issue,
         solution,
       });
@@ -31,8 +35,8 @@ export default function Feedback() {
     } catch (error) {
       if (error.response && error.response.data) {
         const { error: errorMsg } = error.response.data;
-        setGlobalError(errorMsg);
-        toast.error(errorMsg);
+        setGlobalError(errorMsg || "An unexpected error occurred.");
+        toast.error(errorMsg || "An unexpected error occurred.");
       } else {
         setGlobalError("An unexpected error occurred. Please try again.");
         toast.error("An unexpected error occurred. Please try again.");
@@ -44,7 +48,6 @@ export default function Feedback() {
 
   return (
     <div className="feedbackpage">
-      <ToastContainer />
       <Box className="bg-grade">
         <Container maxWidth="sm">
           <Box className="form">
@@ -53,7 +56,12 @@ export default function Feedback() {
             </Typography>
 
             {globalError && (
-              <Typography variant="body1" color="error" align="center" gutterBottom>
+              <Typography
+                variant="body1"
+                color="error"
+                align="center"
+                gutterBottom
+              >
                 {globalError}
               </Typography>
             )}
@@ -74,7 +82,7 @@ export default function Feedback() {
 
               <Grid item xs={12}>
                 <TextField
-                  id="outlined-textarea"
+                  id="outlined-textarea-2"
                   label="Your Solution"
                   multiline
                   className="textField"
@@ -86,13 +94,28 @@ export default function Feedback() {
               </Grid>
 
               <Grid item xs={12}>
-                <Button variant="contained" className="SubmitButton" fullWidth onClick={handleSubmit} disabled={isLoading}>
-                  SUBMIT FEEDBACK
+                <Button
+                  variant="contained"
+                  className="SubmitButton"
+                  fullWidth
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <CircularProgress size={20} />
+                  ) : (
+                    "SUBMIT FEEDBACK"
+                  )}
                 </Button>
               </Grid>
             </Grid>
 
-            <Typography className="quote" variant="body2" align="center" gutterBottom>
+            <Typography
+              className="quote"
+              variant="body2"
+              align="center"
+              gutterBottom
+            >
               "We will try to use your feedback and make things better."
             </Typography>
           </Box>

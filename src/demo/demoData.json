@@ -1,0 +1,57 @@
+{
+  "users": [
+    {
+      "fullName": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "token": "demo-token-user-alice"
+    },
+    {
+      "fullName": "Bob Smith",
+      "email": "bob.smith@example.com",
+      "token": "demo-token-user-bob"
+    }
+  ],
+  "vendors": [
+    {
+      "_id": "v1",
+      "fullName": "Carlos Repairs",
+      "skills": "AC, Plumbing",
+      "visitPrice": 500,
+      "averageRating": 4.8,
+      "onTimePercentage": 96,
+      "address": "123 Main St"
+    },
+    {
+      "_id": "v2",
+      "fullName": "Diane Fixit",
+      "skills": "Mobile Repair",
+      "visitPrice": 300,
+      "averageRating": 4.7,
+      "onTimePercentage": 92,
+      "address": "45 Market Rd"
+    },
+    {
+      "_id": "v3",
+      "fullName": "Ali Tech",
+      "skills": "Laptop Repair, Motherboard",
+      "visitPrice": 700,
+      "averageRating": 4.9,
+      "onTimePercentage": 98,
+      "address": "77 Service Ave"
+    }
+  ],
+  "categories": [
+    { "name": "Laptop", "online": 124 },
+    { "name": "Smartphones", "online": 231 },
+    { "name": "Washing Machine", "online": 42 }
+  ],
+  "chats": [
+    {
+      "chatName": "Laptop Overheating",
+      "messages": [
+        { "sender": "user", "text": "My laptop is overheating while gaming" },
+        { "sender": "bot", "text": "Try cleaning vents and checking CPU temps" }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/screens/VendorOrders.css";
 
@@ -12,7 +12,7 @@ export default function VendorOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/orders?vendor=${storeData._id}`);
+        const response = await api.get(`/api/orders?vendor=${storeData._id}`);
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders", error);
@@ -23,8 +23,7 @@ export default function VendorOrders() {
   }, [storeData._id]);
 
   return (
-    <div className="vendor-page">
-      <ToastContainer />
+    <div className="vendor-page full-bleed">
       <div className="chatbot-sec1">
         <div className="chatbot-sec1-title">
           <h5>Vendor Dashboard</h5>
@@ -50,7 +49,7 @@ export default function VendorOrders() {
         {orders.length === 0 ? (
           <p>No orders available</p>
         ) : (
-          orders.map(order => (
+          orders.map((order) => (
             <div className="order-item" key={order._id}>
               <h6>{order.issueMessage}</h6>
               <p>Status: {order.status}</p>

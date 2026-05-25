@@ -1,6 +1,7 @@
 .vendor-page {
   display: flex;
-  height: 100vh;
+  min-height: calc(100vh - 72px);
+  padding: 28px 0;
   color: white;
   background-color: #002046;
 }
@@ -45,6 +46,8 @@
   padding: 20px;
   background-color: #002046;
   overflow-y: auto;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .orders-sec h5 {
@@ -63,7 +66,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.order-item h6, .order-item p {
+.order-item h6,
+.order-item p {
   margin: 0 0 10px 0;
   white-space: nowrap;
   overflow: hidden;

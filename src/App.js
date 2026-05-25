@@ -26,7 +26,6 @@ function App() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log("This is a bad this", user);
   useEffect(() => {
     const storedAuthState =
       JSON.parse(localStorage.getItem("user")) ||
@@ -51,48 +50,51 @@ function App() {
       {location.pathname !== "/sign-in" && location.pathname !== "/sign-up" && (
         <NavBar />
       )}
-      <Routes>
-        {isAuthenticated ? (
-          <>
-            {user.role === "user" && (
-              <>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/chatbot" element={<Chatbot />} />
-                <Route path="/vendors" element={<Vendors />} />
-                <Route path="/feedback" element={<Feedback />} />
-                <Route path="/report" element={<Report />} />
-                <Route path="/user-orders" element={<UserOrders />} />
-                <Route path="*" element={<NotFound />} />
-              </>
-            )}
-            {user.role === "vendor" && (
-              <>
-                <Route path="/" element={<VendorSide />} />
-                <Route path="/report" element={<Report />} />
-                <Route path="/vendor-orders" element={<VendorOrders />} />
-                <Route path="*" element={<NotFound />} />
-              </>
-            )}
-            {user.role === "admin" && (
-              <>
-                <Route path="/" element={<AdminDashboard />} />
-                <Route path="*" element={<NotFound />} />
-              </>
-            )}
-            <Route path="/" element={<Navigate to="/" />} />
-            <Route path="/sign-up" element={<Navigate to="/" />} />
-            <Route path="/vendor-signup" element={<Navigate to="/" />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/vendor-signup" element={<VendorSignup />} />
-            <Route path="*" element={<NotFound />} />
-          </>
-        )}
-      </Routes>
+      <main className="container">
+        <Routes>
+          {isAuthenticated ? (
+            <>
+              {user.role === "user" && (
+                <>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/chatbot" element={<Chatbot />} />
+                  <Route path="/vendors" element={<Vendors />} />
+                  <Route path="/feedback" element={<Feedback />} />
+                  <Route path="/report" element={<Report />} />
+                  <Route path="/user-orders" element={<UserOrders />} />
+                  <Route path="*" element={<NotFound />} />
+                </>
+              )}
+              {user.role === "vendor" && (
+                <>
+                  <Route path="/" element={<VendorSide />} />
+                  <Route path="/report" element={<Report />} />
+                  <Route path="/vendor-orders" element={<VendorOrders />} />
+                  <Route path="*" element={<NotFound />} />
+                </>
+              )}
+              {user.role === "admin" && (
+                <>
+                  <Route path="/" element={<AdminDashboard />} />
+                  <Route path="*" element={<NotFound />} />
+                </>
+              )}
+              <Route path="/" element={<Navigate to="/" />} />
+              <Route path="/sign-in" element={<Navigate to="/" />} />
+              <Route path="/sign-up" element={<Navigate to="/" />} />
+              <Route path="/vendor-signup" element={<Navigate to="/" />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/vendor-signup" element={<VendorSignup />} />
+              <Route path="*" element={<NotFound />} />
+            </>
+          )}
+        </Routes>
+      </main>
       {location.pathname !== "/sign-in" && location.pathname !== "/sign-up" && (
         <Footer />
       )}

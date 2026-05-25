@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import "../styles/screens/SignIn.css";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { FormControl, FormControlLabel, FormLabel, RadioGroup, Radio } from "@mui/material";
-import axios from "axios";
-import { Container, Box, Typography, Grid, CircularProgress } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  RadioGroup,
+  Radio,
+} from "@mui/material";
+import api from "../utils/api";
+import {
+  Container,
+  Box,
+  Typography,
+  Grid,
+  CircularProgress,
+} from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { userActions } from "../store"; // Path to your store file
@@ -26,6 +36,19 @@ export default function SignIn() {
     setIsLoading(true);
     setGlobalError("");
 
+    // Basic client-side validation
+    if (!email || !password) {
+      setGlobalError("Please enter both email and password");
+      setIsLoading(false);
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setGlobalError("Please enter a valid email address");
+      setIsLoading(false);
+      return;
+    }
+
     const endpointMap = {
       user: "user",
       vendor: "vendor",
@@ -35,25 +58,33 @@ export default function SignIn() {
     const endpoint = endpointMap[type];
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/${endpoint}/login`, {
+      const response = await api.post(`/api/${endpoint}/login`, {
         email,
         password,
       });
 
       if (response.status === 200) {
         let addlocal = response.data.user;
+        const token = response.data.token;
+        try {
+          // eslint-disable-next-line no-console
+          console.debug("SignIn response", response.data);
+        } catch (e) {}
 
-        addlocal = {...addlocal, role:endpoint}
+        addlocal = { ...addlocal, role: endpoint, token };
         localStorage.setItem(endpoint, JSON.stringify(addlocal));
-        dispatch(userActions.LoggedIn(response.data.user));
+        dispatch(userActions.LoggedIn(addlocal));
         toast.success("Logged In");
         navigate("/");
       }
     } catch (error) {
       console.error("There was an error logging in!", error);
       if (error.response && error.response.data) {
-        const { error: errorMsg } = error.response.data;
-        setGlobalError(errorMsg);
+        const data = error.response.data;
+        const msg = data.message || data.error || JSON.stringify(data);
+        setGlobalError(msg);
+      } else if (error.message) {
+        setGlobalError(error.message);
       } else {
         setGlobalError("An unexpected error occurred. Please try again.");
       }
@@ -66,7 +97,6 @@ export default function SignIn() {
 
   return (
     <div className="signInPage">
-      
       <Box className="bg-grade">
         <Container maxWidth="sm">
           <Box className="form">
@@ -75,7 +105,12 @@ export default function SignIn() {
             </Typography>
 
             {globalError && (
-              <Typography variant="body1" color="error" align="center" gutterBottom>
+              <Typography
+                variant="body1"
+                color="error"
+                align="center"
+                gutterBottom
+              >
                 {globalError}
               </Typography>
             )}
@@ -112,8 +147,13 @@ export default function SignIn() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <FormControl component="fieldset" style={{ marginBottom: "20px" }}>
-                      <FormLabel component="legend">Type (required) :</FormLabel>
+                    <FormControl
+                      component="fieldset"
+                      style={{ marginBottom: "20px" }}
+                    >
+                      <FormLabel component="legend">
+                        Type (required) :
+                      </FormLabel>
                       <RadioGroup
                         aria-label="type"
                         name="type"
@@ -121,9 +161,21 @@ export default function SignIn() {
                         onChange={(e) => setType(e.target.value)}
                         style={{ display: "flex", flexDirection: "row" }}
                       >
-                        <FormControlLabel value="user" control={<Radio />} label="User" />
-                        <FormControlLabel value="vendor" control={<Radio />} label="Vendor" />
-                        <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                        <FormControlLabel
+                          value="user"
+                          control={<Radio />}
+                          label="User"
+                        />
+                        <FormControlLabel
+                          value="vendor"
+                          control={<Radio />}
+                          label="Vendor"
+                        />
+                        <FormControlLabel
+                          value="admin"
+                          control={<Radio />}
+                          label="Admin"
+                        />
                       </RadioGroup>
                     </FormControl>
                   </Grid>
@@ -138,7 +190,12 @@ export default function SignIn() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <Button variant="contained" className="SubmitButton" onClick={handleSignIn} fullWidth>
+                    <Button
+                      variant="contained"
+                      className="SubmitButton"
+                      onClick={handleSignIn}
+                      fullWidth
+                    >
                       Sign In
                     </Button>
                   </Grid>
@@ -148,7 +205,6 @@ export default function SignIn() {
           </Box>
         </Container>
       </Box>
-      
     </div>
   );
 }
