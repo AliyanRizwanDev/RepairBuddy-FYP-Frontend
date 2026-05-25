@@ -169,7 +169,7 @@
 }
 
 .message-container.user {
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .message {
